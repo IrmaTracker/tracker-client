@@ -6,6 +6,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import Checkbox from "material-ui/Checkbox";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
+import ImagePicker from "../components/ImagePicker";
 
 const styles: React.CSSProperties = {
     leftAlign: {
@@ -44,8 +45,7 @@ const styles: React.CSSProperties = {
     }
 };
 class AddPersonForm extends React.Component<any, any> {
-    // mP = missing person
-    // pC = personal contact
+    // mP = missing person pC = personal contact
 
     constructor(props: any) {
         super(props);
@@ -72,35 +72,35 @@ class AddPersonForm extends React.Component<any, any> {
                 <h2>Add Someone To the List</h2>
                 <small>Enter as much information as you can</small>
                 <div>
-                    <h3 style={{ textAlign: "left" }}>
+                    <h3
+                        style={{
+                            textAlign: "left"
+                        }}
+                    >
                         Who are you looking for?
                     </h3>
                     <div style={styles.values}>
+                        <ImagePicker />
                         <TextField
                             ref="mPname"
                             floatingLabelText="Name"
-                            floatingLabelStyle={{ color: "black" }}
+                            value={this.state.value}
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({ mPname: e.target.value })}
                         />
                         <br />
                         <TextField
-                            floatingLabelText="Address"
-                            floatingLabelStyle={{ color: "black" }}
+                            floatingLabelText="Address (optional)"
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({ mPaddress: e.target.value })}
                         />
                         <br />
                         <DatePicker
                             floatingLabelText="Last Seen Date (optional)"
-                            floatingLabelStyle={{ color: "black" }}
                             autoOk={true}
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({
                                     mPlastSeenDate: e.target.value
@@ -109,10 +109,8 @@ class AddPersonForm extends React.Component<any, any> {
                         <br />
                         <TimePicker
                             floatingLabelText="Time Since Last Seen (optional)"
-                            floatingLabelStyle={{ color: "black" }}
                             autoOk={true}
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({
                                     mPtimeLastSeen: e.target.value
@@ -120,18 +118,15 @@ class AddPersonForm extends React.Component<any, any> {
                         />
                         <br />
                         <TextField
-                            floatingLabelText="Missing Person's Phone Number"
-                            floatingLabelStyle={{ color: "black" }}
+                            floatingLabelText="Missing Person's Phone Number (optional)"
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({ mPphonenum: e.target.value })}
                         />
                         <br />
                         <TextField
                             style={styles.leftAlign}
-                            floatingLabelText="Extra Information"
-                            floatingLabelStyle={{ color: "black" }}
+                            floatingLabelText="Extra Information (optional)"
                             multiLine={true}
                             rows={3}
                             rowsMax={6}
@@ -150,42 +145,38 @@ class AddPersonForm extends React.Component<any, any> {
                             />
                         </div>
                     </div>
-                    <h3 style={{ textAlign: "left" }}>
+                    <h3
+                        style={{
+                            textAlign: "left"
+                        }}
+                    >
                         Your Contact Information
                     </h3>
                     <div style={styles.values}>
                         <TextField
                             floatingLabelText="Your Name"
-                            floatingLabelStyle={{ color: "black" }}
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({ pCname: e.target.value })}
                         />
                         <br />
                         <TextField
                             floatingLabelText="Your Phone Number"
-                            floatingLabelStyle={{ color: "black" }}
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({ pCnumber: e.target.value })}
                         />
                         <br />
                         <TextField
                             floatingLabelText="Your Email (Receive notification when marked safe)"
-                            floatingLabelStyle={{ color: "black" }}
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({ pCemail: e.target.value })}
                         />
                         <br />
                         <TextField
-                            floatingLabelText="Your Facebook Link"
-                            floatingLabelStyle={{ color: "black" }}
+                            floatingLabelText="Your Facebook Link (optional)"
                             fullWidth={true}
-                            style={{}}
                             onChange={(e: any) =>
                                 this.setState({ pCfacebook: e.target.value })}
                         />
@@ -193,7 +184,11 @@ class AddPersonForm extends React.Component<any, any> {
                     </div>
                 </div>
                 <span
-                    style={{ paddingLeft: 15, color: "red", textAlign: "left" }}
+                    style={{
+                        paddingLeft: 15,
+                        color: "red",
+                        textAlign: "left"
+                    }}
                 >
                     {" "}
                     {this.state.errorMsg}
