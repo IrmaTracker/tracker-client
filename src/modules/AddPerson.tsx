@@ -7,7 +7,7 @@ import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import Checkbox from "material-ui/Checkbox";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 import ImagePicker from "../components/ImagePicker";
-// import fetch from "node-fetch";
+import fetch from "node-fetch";
 
 const styles: React.CSSProperties = {
     leftAlign: {
@@ -56,6 +56,7 @@ interface Props {
 interface State {
     mPname: TextData;
     mPage: TextData;
+    mPDistrict: TextData;
     mPaddress: TextData;
     mPlastSeenDate: MyDate;
     mPtimeLastSeen: MyDate;
@@ -83,6 +84,7 @@ class AddPersonForm extends React.Component<Props, State> {
             mPname: "",
             mPage: "",
             mPaddress: "",
+            mPDistrict: "",
             mPlastSeenDate: undefined,
             mPtimeLastSeen: undefined,
             mPphonenum: "",
@@ -136,6 +138,14 @@ class AddPersonForm extends React.Component<Props, State> {
                             value={this.state.mPage}
                             onChange={(e: any) =>
                                 this.setState({ mPage: e.target.value })}
+                        />
+                        <br />
+                        <TextField
+                            floatingLabelText="District (optional)"
+                            fullWidth={true}
+                            value={this.state.mPDistrict}
+                            onChange={(e: any) =>
+                                this.setState({ mPDistrict: e.target.value })}
                         />
                         <br />
                         <TextField
@@ -288,7 +298,35 @@ class AddPersonForm extends React.Component<Props, State> {
 
         // if (errorExists) return;
 
+        let body: any = {
+            name: this.state.mPname,
+            age: this.state.mPage,
+            phonenumber: this.state.mPphonenum,
+            missing_since:
+                this.state.mPlastSeenDate + " " + this.state.mPtimeLastSeen,
+            district: this.state.mPDistrict,
+            address: this.state.mPaddress,
+            //area: this.props.area,
+            safe: this.state.mPSafe,
+            extra_info: this.state.mPextraInfo,
+            requester_name: this.state.pCname,
+            requester_email: this.state.pCemail,
+            requester_fb: this.state.pCfacebook,
+            requester_number: this.state.pCnumber
+        };
+
         // No error so safely post to api
+
+        fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
+            method: "post",
+            headers: {
+                Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
+            },
+            body: body
+        })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(error => console.log(error));
 
         // TODO: Make a request using fetch
         // let body = {
