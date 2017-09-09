@@ -19,14 +19,12 @@ const styles: React.CSSProperties = {
     h4: {
         fontSize: 16,
         color: "#00BCD4",
-        fontFamily: "Roboto, sans-serif",
-        fontWeight: "normal"
+        textAlign: "left"
     },
     checkbox: {
         marginBottom: 16,
         fontSize: 16,
         color: "rgba(0, 0, 0, 0.27)",
-        fontFamily: "Roboto, sans-serif",
         width: "auto"
     },
     values: {
