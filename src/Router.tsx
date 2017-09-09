@@ -1,26 +1,44 @@
 import * as React from "react";
+import { Component } from "react";
 import { Tabs, Tab } from "material-ui";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import HomeIcon from "material-ui/svg-icons/action/home";
 
-const styles = {
+// Modules imports
+import Home from "./modules/Home";
+
+// Styling
+const styles: React.CSSProperties = {
     fontSize: 24,
-    paddingTop: 16,
     marginBottom: 12
 };
 
-const LayoutTabs = (props?: MappedProps) => {
-    return (
-        <MuiThemeProvider>
-            <Tabs style={styles}>
-                <Tab label="Home" />
-                <Tab label="Peoples List" />
-                <Tab label="Add Missing Person" />
-                <Tab label="Help" />
-            </Tabs>
-        </MuiThemeProvider>
-    );
-};
+// Main Layout
+export default class LayoutTabs extends Component {
+    constructor(props: any) {
+        super(props);
+        this.handler = this.handler.bind(this);
+    }
 
-interface MappedProps {}
+    handler(e: any) {
+        this.setState({
+            area: e
+        });
+    }
 
-export default LayoutTabs;
+    render() {
+        console.log(this);
+        return (
+            <MuiThemeProvider>
+                <Tabs style={styles}>
+                    <Tab icon={<HomeIcon />}>
+                        <Home handler={this.handler} />
+                    </Tab>
+                    <Tab label="List" />
+                    <Tab label="Add Missing Person" />
+                    <Tab label="Help" />
+                </Tabs>
+            </MuiThemeProvider>
+        );
+    }
+}
