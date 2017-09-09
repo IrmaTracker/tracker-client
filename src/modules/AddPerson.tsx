@@ -3,6 +3,9 @@ import TextField from "material-ui/TextField";
 import DatePicker from "material-ui/DatePicker";
 import TimePicker from "material-ui/TimePicker";
 import RaisedButton from "material-ui/RaisedButton";
+import ActionFavorite from "material-ui/svg-icons/action/favorite";
+import Checkbox from "material-ui/Checkbox";
+import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 
 const formStyle: React.CSSProperties = {
     margin: "0 1.3em",
@@ -26,6 +29,23 @@ const submitStyle: React.CSSProperties = {
     width: "40%",
     margin: "auto",
     marginTop: 15
+};
+
+const styles: React.CSSProperties = {
+    textAlign: "left",
+    h4: {
+        fontSize: 16,
+        color: "#00BCD4",
+        fontFamily: "Roboto, sans-serif",
+        fontWeight: "normal"
+    },
+    checkbox: {
+        marginBottom: 16,
+        fontSize: 16,
+        color: "rgba(0, 0, 0, 0.27)",
+        fontFamily: "Roboto, sans-serif",
+        width: "auto"
+    }
 };
 const AddPersonForm = () => {
     return (
@@ -76,6 +96,15 @@ const AddPersonForm = () => {
                         fullWidth={true}
                     />
                     <br />
+                    <div style={styles}>
+                        <h4 style={styles.h4}>Status</h4>
+                        <Checkbox
+                            checkedIcon={<ActionFavorite />}
+                            uncheckedIcon={<ActionFavoriteBorder />}
+                            label="Safe"
+                            style={styles.checkbox}
+                        />
+                    </div>
                 </div>
                 <h3>Your Contact Information</h3>
                 <div>

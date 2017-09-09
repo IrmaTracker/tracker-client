@@ -28,7 +28,6 @@ export default class LayoutTabs extends Component {
     }
 
     render() {
-        console.log(this);
         return (
             <MuiThemeProvider>
                 <Tabs style={styles}>
