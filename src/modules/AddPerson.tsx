@@ -7,7 +7,7 @@ import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import Checkbox from "material-ui/Checkbox";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 import ImagePicker from "../components/ImagePicker";
-var request = require("request");
+// import fetch from "node-fetch";
 
 const styles: React.CSSProperties = {
     leftAlign: {
@@ -290,21 +290,22 @@ class AddPersonForm extends React.Component<Props, State> {
 
         // No error so safely post to api
 
-        let body = {
-            name: this.state.mPname
-        };
-        request.post(
-            {
-                url: "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
-                headers: {
-                    Authorization: ""
-                },
-                form: { body }
-            },
-            function(err: any, httpResponse: any, body: any) {
-                console.log("response is " + body);
-            }
-        );
+        // TODO: Make a request using fetch
+        // let body = {
+        //     name: this.state.mPname
+        // };
+        // request.post(
+        //     {
+        //         url: "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
+        //         headers: {
+        //             Authorization: ""
+        //         },
+        //         form: { body }
+        //     },
+        //     function(err: any, httpResponse: any, body: any) {
+        //         console.log("response is " + body);
+        //     }
+        // );
     }
 
     validateEmail(email: string) {
