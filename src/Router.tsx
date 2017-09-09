@@ -6,6 +6,7 @@ import HomeIcon from "material-ui/svg-icons/action/home";
 
 // Modules imports
 import Home from "./modules/Home";
+import AddPersonForm from "./modules/AddPerson";
 
 // Styling
 const styles: React.CSSProperties = {
@@ -15,12 +16,12 @@ const styles: React.CSSProperties = {
 
 // Main Layout
 export default class LayoutTabs extends Component {
-    constructor(props: any) {
+    constructor(props: {}) {
         super(props);
         this.handler = this.handler.bind(this);
     }
 
-    handler(e: any) {
+    handler(e: {}) {
         this.setState({
             area: e
         });
@@ -35,7 +36,9 @@ export default class LayoutTabs extends Component {
                         <Home handler={this.handler} />
                     </Tab>
                     <Tab label="List" />
-                    <Tab label="Add Missing Person" />
+                    <Tab label="Add Missing Person">
+                        <AddPersonForm />
+                    </Tab>
                     <Tab label="Help" />
                 </Tabs>
             </MuiThemeProvider>
