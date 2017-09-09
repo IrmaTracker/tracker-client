@@ -320,7 +320,10 @@ class AddPersonForm extends React.Component<Props, State> {
         fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
             method: "post",
             headers: {
-                Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
+                "Access-Control-Allow-Methods": " POST",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                "Access-Control-Allow-Origin": "http://127.0.0.1:3000",
+                Authorization: "Token cbd654628773cebf5a2a130b65b1d6963c36cd6b"
             },
             body: body
         })
