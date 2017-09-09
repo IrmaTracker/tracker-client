@@ -19,53 +19,68 @@ const AddPersonForm = () => {
             <h2>Add Someone To the List</h2>
             <small>Who are you looking for?</small>
             <div>
-                <TextField
-                    floatingLabelText="Name"
-                    errorText="This field is required"
-                />
-                <br />
-                <TextField floatingLabelText="Address" />
-                <br />
-                <DatePicker
-                    floatingLabelText="Date Since Missing (optional)"
-                    autoOk={true}
-                />
-                <br />
-                <TimePicker
-                    floatingLabelText="Time Since Missing (optional)"
-                    autoOk={true}
-                />
-                <br />
-                <TextField floatingLabelText="Missing Person's Phone Number" />
-                <br />
-                <TextField
-                    style={leftAlignStyle}
-                    floatingLabelText="Extra Information"
-                    multiLine={true}
-                    rows={3}
-                    rowsMax={6}
-                />
-                <br />
-            </div>
-            <div>
-                <h2>Your Contact Information</h2>
-                <TextField
-                    floatingLabelText="Your Name"
-                    errorText="This field is required"
-                />
-                <br />
-                <TextField
-                    floatingLabelText="Your Phone Number"
-                    errorText="This field is required"
-                />
-                <br />
-                <TextField
-                    floatingLabelText="Your Email"
-                    errorText="This field is required"
-                />
-                <br />
-                <TextField floatingLabelText="Your Facebook Link" />
-                <br />
+                <div>
+                    <TextField
+                        floatingLabelText="Name"
+                        errorText="This field is required"
+                        fullWidth={true}
+                    />
+                    <br />
+                    <TextField floatingLabelText="Address" fullWidth={true} />
+                    <br />
+                    <DatePicker
+                        floatingLabelText="Date Since Missing (optional)"
+                        autoOk={true}
+                        fullWidth={true}
+                    />
+                    <br />
+                    <TimePicker
+                        floatingLabelText="Time Since Missing (optional)"
+                        autoOk={true}
+                        fullWidth={true}
+                    />
+                    <br />
+                    <TextField
+                        floatingLabelText="Missing Person's Phone Number"
+                        fullWidth={true}
+                    />
+                    <br />
+                    <TextField
+                        style={leftAlignStyle}
+                        floatingLabelText="Extra Information"
+                        multiLine={true}
+                        rows={3}
+                        rowsMax={6}
+                        fullWidth={true}
+                    />
+                    <br />
+                </div>
+                <div>
+                    <h2>Your Contact Information</h2>
+                    <TextField
+                        floatingLabelText="Your Name"
+                        errorText="This field is required"
+                        fullWidth={true}
+                    />
+                    <br />
+                    <TextField
+                        floatingLabelText="Your Phone Number"
+                        errorText="This field is required"
+                        fullWidth={true}
+                    />
+                    <br />
+                    <TextField
+                        floatingLabelText="Your Email"
+                        errorText="This field is required"
+                        fullWidth={true}
+                    />
+                    <br />
+                    <TextField
+                        floatingLabelText="Your Facebook Link"
+                        fullWidth={true}
+                    />
+                    <br />
+                </div>
             </div>
         </div>
     );

@@ -56,8 +56,11 @@ class Home extends Component<Props, {}> {
                         filter={AutoComplete.caseInsensitiveFilter}
                         openOnFocus={true}
                         dataSource={dataSource}
-                        maxSearchResults={5}
                         onUpdateInput={this.props.handler}
+                        listStyle={{
+                            maxHeight: 200,
+                            overflow: "auto"
+                        }}
                     />
                 </div>
             </div>
