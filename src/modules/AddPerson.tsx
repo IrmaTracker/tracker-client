@@ -44,23 +44,46 @@ const styles: React.CSSProperties = {
         flexDirection: "column"
     }
 };
-class AddPersonForm extends React.Component<any, any> {
+
+type TextData = string | undefined;
+
+interface Props {
+    formHandler?: any; // might not need this
+}
+
+interface State {
+    mPname: TextData;
+    mPaddress: TextData;
+    mPlastSeenDate: TextData;
+    mPtimeLastSeen: TextData;
+    mPphonenum: TextData;
+    mPextraInfo: TextData;
+    pCname: TextData;
+    pCnumber: TextData;
+    pCemail: TextData;
+    pCfacebook: TextData;
+    errorMsg: TextData;
+    imgUri: TextData;
+}
+
+class AddPersonForm extends React.Component<Props, State> {
     // mP = missing person pC = personal contact
 
     constructor(props: any) {
         super(props);
         this.state = {
-            mPname: undefined,
-            mPaddress: undefined,
-            mPlastSeenDate: undefined,
-            mPtimeLastSeen: undefined,
-            mPphonenum: undefined,
-            mPextraInfo: undefined,
-            pCname: undefined,
-            pCnumber: undefined,
-            pCemail: undefined,
-            pCfacebook: undefined,
-            errorMsg: undefined
+            mPname: "",
+            mPaddress: "",
+            mPlastSeenDate: "",
+            mPtimeLastSeen: "",
+            mPphonenum: "",
+            mPextraInfo: "",
+            pCname: "",
+            pCnumber: "",
+            pCemail: "",
+            pCfacebook: "",
+            errorMsg: "",
+            imgUri: ""
         };
 
         this._handleSubmit = this._handleSubmit.bind(this);
@@ -84,7 +107,7 @@ class AddPersonForm extends React.Component<any, any> {
                         <TextField
                             ref="mPname"
                             floatingLabelText="Name"
-                            value={this.state.value}
+                            value={this.state.mPname}
                             fullWidth={true}
                             onChange={(e: any) =>
                                 this.setState({ mPname: e.target.value })}
@@ -205,7 +228,7 @@ class AddPersonForm extends React.Component<any, any> {
     }
 
     _handleSubmit() {
-        if (this.state.mPname === undefined || this.state.mPname.length < 1) {
+        if (!this.state.mPname || this.state.mPname.length < 1) {
             this.setState({ errorMsg: "Missing Person's name is required" });
             return;
         }
