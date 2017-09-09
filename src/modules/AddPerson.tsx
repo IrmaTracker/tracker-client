@@ -7,32 +7,15 @@ import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import Checkbox from "material-ui/Checkbox";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 
-const formStyle: React.CSSProperties = {
-    margin: "0 1.3em",
-    textAlign: "center",
-    display: "flex",
-    flexDirection: "column"
-};
-
-const leftAlignStyle: React.CSSProperties = {
-    textAlign: "left"
-};
-
-const valuesStyle: React.CSSProperties = {
-    background: "#EEEEEE",
-    padding: "0 2em",
-    paddingBottom: 20,
-    marginBottom: 10
-};
-
-const submitStyle: React.CSSProperties = {
-    width: "40%",
-    margin: "auto",
-    marginTop: 15
-};
-
 const styles: React.CSSProperties = {
-    textAlign: "left",
+    leftAlign: {
+        textAlign: "left"
+    },
+    submit: {
+        width: "40%",
+        margin: "auto",
+        marginTop: 15
+    },
     h4: {
         fontSize: 16,
         color: "#00BCD4",
@@ -45,14 +28,26 @@ const styles: React.CSSProperties = {
         color: "rgba(0, 0, 0, 0.27)",
         fontFamily: "Roboto, sans-serif",
         width: "auto"
+    },
+    values: {
+        background: "#EEEEEE",
+        padding: "0 2em",
+        paddingBottom: 20,
+        marginBottom: 10
+    },
+    form: {
+        margin: "0 1.3em",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column"
     }
 };
 const AddPersonForm = () => {
     return (
-        <div style={formStyle}>
+        <div style={styles.form}>
             <h2>Add Someone To the List</h2>
             <small>Enter as much information as you can</small>
-            <div style={valuesStyle}>
+            <div style={styles.values}>
                 <h3>Who are you looking for?</h3>
                 <div>
                     <TextField
@@ -88,7 +83,7 @@ const AddPersonForm = () => {
                     />
                     <br />
                     <TextField
-                        style={leftAlignStyle}
+                        style={styles.leftAlign}
                         floatingLabelText="Extra Information"
                         multiLine={true}
                         rows={3}
@@ -135,7 +130,11 @@ const AddPersonForm = () => {
                 </div>
             </div>
             {/* Submit to db here */}
-            <RaisedButton label="Submit" secondary={true} style={submitStyle} />
+            <RaisedButton
+                label="Submit"
+                secondary={true}
+                style={styles.submit}
+            />
         </div>
     );
 };
