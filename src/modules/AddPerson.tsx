@@ -7,6 +7,7 @@ import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import Checkbox from "material-ui/Checkbox";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 import ImagePicker from "../components/ImagePicker";
+var request = require("request");
 
 const styles: React.CSSProperties = {
     leftAlign: {
@@ -54,6 +55,7 @@ interface Props {
 
 interface State {
     mPname: TextData;
+    mPage: TextData;
     mPaddress: TextData;
     mPlastSeenDate: MyDate;
     mPtimeLastSeen: MyDate;
@@ -79,6 +81,7 @@ class AddPersonForm extends React.Component<Props, State> {
 
         this.state = {
             mPname: "",
+            mPage: "",
             mPaddress: "",
             mPlastSeenDate: undefined,
             mPtimeLastSeen: undefined,
@@ -124,6 +127,15 @@ class AddPersonForm extends React.Component<Props, State> {
                             fullWidth={true}
                             onChange={(e: any) =>
                                 this.setState({ mPname: e.target.value })}
+                        />
+                        <br />
+                        <TextField
+                            floatingLabelText="Age (optional)"
+                            fullWidth={true}
+                            type={"number"}
+                            value={this.state.mPage}
+                            onChange={(e: any) =>
+                                this.setState({ mPage: e.target.value })}
                         />
                         <br />
                         <TextField
@@ -274,7 +286,25 @@ class AddPersonForm extends React.Component<Props, State> {
             errorExists = true;
         }
 
-        if (errorExists) return;
+        // if (errorExists) return;
+
+        // No error so safely post to api
+
+        let body = {
+            name: this.state.mPname
+        };
+        request.post(
+            {
+                url: "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
+                headers: {
+                    Authorization: ""
+                },
+                form: { body }
+            },
+            function(err: any, httpResponse: any, body: any) {
+                console.log("response is " + body);
+            }
+        );
     }
 
     validateEmail(email: string) {
