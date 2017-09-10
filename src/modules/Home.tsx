@@ -1,33 +1,24 @@
 import * as React from "react";
 import { Component } from "react";
-import AutoComplete from "material-ui/AutoComplete";
-
-// Add your own
-const dataSource = [
-    "Anguilla",
-    "Antigua",
-    "Bahamas",
-    "Boca Raton, FL",
-    "British Virgin Islands",
-    "Cuba",
-    "Dominican Republic",
-    "Guadeloupe",
-    "Haiti",
-    "Keywest, FL",
-    "Miami, FL",
-    "Montserrat",
-    "Naples",
-    "Nevis",
-    "Orlando, FL",
-    "Puerto Rico",
-    "Saba",
-    "Saint Barth",
-    "St John",
-    "St Croix"
-];
+import SelectArea from "../components/selectArea";
+import HelpList from "./HelpList";
 
 const homeStyle: React.CSSProperties = {
-    margin: "1em"
+    margin: "1em 2.5em",
+    h1: {
+        fontSize: 36,
+        fontWeight: "normal",
+        marginBottom: 10
+    },
+    h2: {
+        fontSize: 23,
+        fontWeight: "normal",
+        marginBottom: 10
+    },
+    small: {
+        fontSize: 20,
+        opacity: "0.5"
+    }
 };
 
 interface Props {
@@ -40,28 +31,24 @@ class Home extends Component<Props, {}> {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div style={homeStyle}>
                 <header>
-                    <h1>Missing People Tracker</h1>
-                    <small>Let's help each other find our loved ones</small>
+                    <h1 style={homeStyle.h1}>Missing People Tracker</h1>
+                    <small style={homeStyle.small}>
+                        Let's help each other find our loved ones
+                    </small>
                 </header>
+                <div className="help">
+                    <HelpList />
+                </div>
                 <div>
-                    <h2>
-                        Select one of the islands/countries affected by Irma
+                    <h2 style={homeStyle.h2}>
+                        Select one of the islands/countries affected by Irma:
                     </h2>
-                    <AutoComplete
-                        hintText="Enter Area"
-                        filter={AutoComplete.caseInsensitiveFilter}
-                        openOnFocus={true}
-                        dataSource={dataSource}
-                        onUpdateInput={this.props.handler}
-                        listStyle={{
-                            maxHeight: 200,
-                            overflow: "auto"
-                        }}
-                    />
+                    <div style={{ height: 160 }}>
+                        <SelectArea handler={this.props.handler} />
+                    </div>
                 </div>
             </div>
         );

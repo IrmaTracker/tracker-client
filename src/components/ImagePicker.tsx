@@ -94,8 +94,12 @@ class ImagePicker extends Component<{}, State> {
                 >
                     {!data &&
                     !loading && (
-                        <label className="label" htmlFor="car">
-                            Select Image
+                        <label
+                            className="label"
+                            htmlFor="car"
+                            style={{ fontSize: "0.7em", textAlign: "center" }}
+                        >
+                            Click to select missing peson image
                         </label>
                     )}
                     {loading && <span>Loading...</span>}
@@ -106,7 +110,7 @@ class ImagePicker extends Component<{}, State> {
                     accept="image/*"
                     capture={true}
                     onChange={this.handleFileChange}
-                    style={{ width: 159 }}
+                    style={{ visibility: "hidden" }}
                 />
             </div>
         );

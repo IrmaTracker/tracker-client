@@ -7,6 +7,8 @@ import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import Checkbox from "material-ui/Checkbox";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 import ImagePicker from "../components/ImagePicker";
+import { PersonParams } from "../interfaces/apiInterfaces";
+import fetch from "node-fetch";
 
 const styles: React.CSSProperties = {
     leftAlign: {
@@ -16,6 +18,14 @@ const styles: React.CSSProperties = {
         width: "40%",
         margin: "auto",
         marginTop: 15
+    },
+    h2: {
+        fontSize: 22,
+        fontWeight: "normal"
+    },
+    small: {
+        fontSize: 20,
+        opacity: "0.5"
     },
     h4: {
         fontSize: 16,
@@ -39,31 +49,35 @@ const styles: React.CSSProperties = {
     },
     form: {
         margin: "0 1.3em",
-        textAlign: "center",
+        textAlign: "left",
         display: "flex",
         flexDirection: "column"
     }
 };
-
-type TextData = string | undefined;
 
 interface Props {
     formHandler?: any; // might not need this
 }
 
 interface State {
-    mPname: TextData;
-    mPaddress: TextData;
-    mPlastSeenDate: TextData;
-    mPtimeLastSeen: TextData;
-    mPphonenum: TextData;
-    mPextraInfo: TextData;
-    pCname: TextData;
-    pCnumber: TextData;
-    pCemail: TextData;
-    pCfacebook: TextData;
-    errorMsg: TextData;
-    imgUri: TextData;
+    mPname: string;
+    mPage: number;
+    mPDistrict: string;
+    mPaddress: string;
+    mPlastSeenDate?: Date | undefined;
+    mPtimeLastSeen?: Date | undefined;
+    mPphonenum: string;
+    mPextraInfo: string;
+    mPSafe: boolean;
+    pCname: string;
+    pCnumber: string;
+    pCemail: string;
+    pCfacebook: string;
+    errorMsg: string;
+    imgUri: string;
+    emailError: string;
+    mPNameError: string;
+    pCnameError: string;
 }
 
 class AddPersonForm extends React.Component<Props, State> {
@@ -71,29 +85,35 @@ class AddPersonForm extends React.Component<Props, State> {
 
     constructor(props: any) {
         super(props);
+
         this.state = {
             mPname: "",
+            mPage: 0,
             mPaddress: "",
-            mPlastSeenDate: "",
-            mPtimeLastSeen: "",
+            mPDistrict: "",
+            mPlastSeenDate: undefined,
+            mPtimeLastSeen: undefined,
             mPphonenum: "",
             mPextraInfo: "",
+            mPSafe: false,
             pCname: "",
             pCnumber: "",
             pCemail: "",
             pCfacebook: "",
             errorMsg: "",
-            imgUri: ""
+            imgUri: "",
+            emailError: "",
+            mPNameError: "",
+            pCnameError: ""
         };
 
         this._handleSubmit = this._handleSubmit.bind(this);
     }
 
     render() {
+        console.log(this.state);
         return (
             <div style={styles.form}>
-                <h2>Add Someone To the List</h2>
-                <small>Enter as much information as you can</small>
                 <div>
                     <h3
                         style={{
@@ -102,20 +122,43 @@ class AddPersonForm extends React.Component<Props, State> {
                     >
                         Who are you looking for?
                     </h3>
+                    <small style={styles.small}>
+                        Enter as much information as you can
+                    </small>
                     <div style={styles.values}>
                         <ImagePicker />
                         <TextField
                             ref="mPname"
                             floatingLabelText="Name"
                             value={this.state.mPname}
+                            errorText={this.state.mPNameError}
+                            type={"text"}
                             fullWidth={true}
                             onChange={(e: any) =>
                                 this.setState({ mPname: e.target.value })}
                         />
                         <br />
                         <TextField
+                            floatingLabelText="Age (optional)"
+                            fullWidth={true}
+                            type={"number"}
+                            value={this.state.mPage}
+                            onChange={(e: any) =>
+                                this.setState({ mPage: e.target.value })}
+                        />
+                        <br />
+                        <TextField
+                            floatingLabelText="District (optional)"
+                            fullWidth={true}
+                            value={this.state.mPDistrict}
+                            onChange={(e: any) =>
+                                this.setState({ mPDistrict: e.target.value })}
+                        />
+                        <br />
+                        <TextField
                             floatingLabelText="Address (optional)"
                             fullWidth={true}
+                            value={this.state.mPaddress}
                             onChange={(e: any) =>
                                 this.setState({ mPaddress: e.target.value })}
                         />
@@ -124,25 +167,28 @@ class AddPersonForm extends React.Component<Props, State> {
                             floatingLabelText="Last Seen Date (optional)"
                             autoOk={true}
                             fullWidth={true}
-                            onChange={(e: any) =>
+                            value={this.state.mPlastSeenDate}
+                            onChange={(e: any, date: Date) => {
                                 this.setState({
-                                    mPlastSeenDate: e.target.value
-                                })}
+                                    mPlastSeenDate: date
+                                });
+                            }}
                         />
-                        <br />
                         <TimePicker
                             floatingLabelText="Time Since Last Seen (optional)"
                             autoOk={true}
                             fullWidth={true}
-                            onChange={(e: any) =>
+                            value={this.state.mPtimeLastSeen}
+                            onChange={(e: any, date: Date) =>
                                 this.setState({
-                                    mPtimeLastSeen: e.target.value
+                                    mPtimeLastSeen: date
                                 })}
                         />
-                        <br />
                         <TextField
                             floatingLabelText="Missing Person's Phone Number (optional)"
                             fullWidth={true}
+                            type={"number"}
+                            value={this.state.mPphonenum}
                             onChange={(e: any) =>
                                 this.setState({ mPphonenum: e.target.value })}
                         />
@@ -153,6 +199,7 @@ class AddPersonForm extends React.Component<Props, State> {
                             multiLine={true}
                             rows={3}
                             rowsMax={6}
+                            value={this.state.mPextraInfo}
                             fullWidth={true}
                             onChange={(e: any) =>
                                 this.setState({ mPextraInfo: e.target.value })}
@@ -163,8 +210,11 @@ class AddPersonForm extends React.Component<Props, State> {
                             <Checkbox
                                 checkedIcon={<ActionFavorite />}
                                 uncheckedIcon={<ActionFavoriteBorder />}
+                                checked={this.state.mPSafe}
                                 label="Safe"
                                 style={styles.checkbox}
+                                onCheck={(e: any, checked: boolean) =>
+                                    this.setState({ mPSafe: checked })}
                             />
                         </div>
                     </div>
@@ -179,6 +229,9 @@ class AddPersonForm extends React.Component<Props, State> {
                         <TextField
                             floatingLabelText="Your Name"
                             fullWidth={true}
+                            type={"text"}
+                            value={this.state.pCname}
+                            errorText={this.state.pCnameError}
                             onChange={(e: any) =>
                                 this.setState({ pCname: e.target.value })}
                         />
@@ -186,13 +239,18 @@ class AddPersonForm extends React.Component<Props, State> {
                         <TextField
                             floatingLabelText="Your Phone Number"
                             fullWidth={true}
+                            type={"number"}
+                            value={this.state.pCnumber}
                             onChange={(e: any) =>
                                 this.setState({ pCnumber: e.target.value })}
                         />
                         <br />
                         <TextField
-                            floatingLabelText="Your Email (Receive notification when marked safe)"
+                            floatingLabelText="Your Email (To receive notification when marked safe)"
                             fullWidth={true}
+                            type={"email"}
+                            value={this.state.pCemail}
+                            errorText={this.state.emailError}
                             onChange={(e: any) =>
                                 this.setState({ pCemail: e.target.value })}
                         />
@@ -200,6 +258,7 @@ class AddPersonForm extends React.Component<Props, State> {
                         <TextField
                             floatingLabelText="Your Facebook Link (optional)"
                             fullWidth={true}
+                            value={this.state.pCfacebook}
                             onChange={(e: any) =>
                                 this.setState({ pCfacebook: e.target.value })}
                         />
@@ -227,12 +286,80 @@ class AddPersonForm extends React.Component<Props, State> {
         );
     }
 
-    _handleSubmit() {
-        if (!this.state.mPname || this.state.mPname.length < 1) {
-            this.setState({ errorMsg: "Missing Person's name is required" });
-            return;
+    async _handleSubmit() {
+        this.setState({ mPNameError: "", emailError: "", pCnameError: "" });
+
+        var errorExists: boolean = false;
+        if (!this.state.mPname || this.state.mPname.length < 2) {
+            this.setState({ mPNameError: "Missing Person's name is required" });
+            errorExists = true;
         }
-        this.setState({ errorMsg: " " });
+        if (!this.validateEmail(String(this.state.pCemail))) {
+            this.setState({ emailError: "Please enter a valid email" });
+            errorExists = true;
+        }
+        if (!this.state.pCname) {
+            this.setState({ pCnameError: "Please enter your name" });
+            errorExists = true;
+        }
+
+        // if (errorExists) return;
+
+        const formBody: PersonParams = {
+            name: this.state.mPname,
+            age: this.state.mPage,
+            area: 1, // not actually, TODO
+            phonenumber: this.state.mPphonenum,
+            missing_since:
+                this.state.mPlastSeenDate + " " + this.state.mPtimeLastSeen,
+            district: this.state.mPDistrict,
+            address: this.state.mPaddress,
+            //area: this.props.area,
+            safe: this.state.mPSafe,
+            extra_info: this.state.mPextraInfo,
+            requester_name: this.state.pCname,
+            requester_email: this.state.pCemail,
+            requester_fb: this.state.pCfacebook,
+            requester_number: this.state.pCnumber
+        };
+
+        var body: any = new FormData();
+        body.append("json", JSON.stringify(formBody)) as any;
+
+        // No error so safely post to api
+
+        console.log(body);
+        // var myHeaders = new Headers();
+        const response = await fetch(
+            "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
+            {
+                headers: {
+                    Authorization:
+                        "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
+                }
+            }
+        );
+
+        console.log(response);
+
+        // fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
+        //     method: "post",
+        //     headers: {
+        //         "Access-Control-Allow-Methods": " POST",
+        //         "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        //         "Access-Control-Allow-Origin": "http://localhost:3000",
+        //         Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
+        //     },
+        //     body
+        // })
+        //     .then(res => res.json())
+        //     .then(res => console.log(res))
+        //     .catch(error => console.log(error));
+    }
+
+    validateEmail(email: string) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 }
 
