@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Component } from "react";
 import SelectArea from "../components/selectArea";
-
+import HelpList from "./HelpList";
 // TODO: fetch arealist
 const dataSource = [
     "Anguilla",
@@ -29,7 +29,20 @@ const dataSource = [
 ];
 
 const homeStyle: React.CSSProperties = {
-    margin: "1em"
+    margin: "1em",
+    h1: {
+        fontSize: 36,
+        fontWeight: "normal",
+        marginBottom: 10
+    },
+    h2: {
+        fontSize: 26,
+        fontWeight: "normal"
+    },
+    small: {
+        fontSize: 20,
+        opacity: "0.5"
+    }
 };
 
 interface Props {
@@ -45,11 +58,16 @@ class Home extends Component<Props, {}> {
         return (
             <div style={homeStyle}>
                 <header>
-                    <h1>Missing People Tracker</h1>
-                    <small>Let's help each other find our loved ones</small>
+                    <h1 style={homeStyle.h1}>Missing People Tracker</h1>
+                    <small style={homeStyle.small}>
+                        Let's help each other find our loved ones
+                    </small>
                 </header>
+                <div className="help">
+                    <HelpList />
+                </div>
                 <div>
-                    <h2>
+                    <h2 style={homeStyle.h2}>
                         Select one of the islands/countries affected by Irma
                     </h2>
                     <SelectArea
