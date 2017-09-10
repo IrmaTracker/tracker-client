@@ -29,6 +29,11 @@ const styles: React.CSSProperties = {
     h4: {
         fontSize: 16,
         color: "#00BCD4",
+        textAlign: "left",
+        fontWeight: "normal"
+    },
+    h3: {
+        fontWeight: "normal",
         textAlign: "left"
     },
     checkbox: {
@@ -113,13 +118,7 @@ class AddPersonForm extends React.Component<Props, State> {
         return (
             <div style={styles.form}>
                 <div>
-                    <h3
-                        style={{
-                            textAlign: "left"
-                        }}
-                    >
-                        Who are you looking for?
-                    </h3>
+                    <h3 style={styles.h3}>Who are you looking for?</h3>
                     <small style={styles.small}>
                         Enter as much information as you can
                     </small>
@@ -216,13 +215,7 @@ class AddPersonForm extends React.Component<Props, State> {
                             />
                         </div>
                     </div>
-                    <h3
-                        style={{
-                            textAlign: "left"
-                        }}
-                    >
-                        Your Contact Information
-                    </h3>
+                    <h3 style={styles.h3}>Your Contact Information</h3>
                     <div style={styles.values}>
                         <TextField
                             floatingLabelText="Your Name"
