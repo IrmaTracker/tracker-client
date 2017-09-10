@@ -39,7 +39,7 @@ const styles: React.CSSProperties = {
     },
     values: {
         background: "#EEEEEE",
-        padding: "0 2em",
+        padding: "0 3em",
         paddingBottom: 20,
         marginBottom: 10
     },
