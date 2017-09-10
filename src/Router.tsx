@@ -7,6 +7,7 @@ import HomeIcon from "material-ui/svg-icons/action/home";
 // Modules imports
 import Home from "./modules/Home";
 import AddPersonForm from "./modules/AddPerson";
+import List from "./modules/List";
 
 // Styling
 const styles: React.CSSProperties = {
@@ -34,7 +35,9 @@ export default class LayoutTabs extends Component {
                     <Tab icon={<HomeIcon />}>
                         <Home handler={this.handler} />
                     </Tab>
-                    <Tab label="List" />
+                    <Tab label="List">
+                        <List />
+                    </Tab>
                     <Tab label="Add Missing Person">
                         <AddPersonForm />
                     </Tab>
