@@ -6,7 +6,6 @@ import RaisedButton from "material-ui/RaisedButton";
 import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import Checkbox from "material-ui/Checkbox";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
-import ImagePicker from "../components/ImagePicker";
 import { PersonParams } from "../interfaces/apiInterfaces";
 import fetch from "node-fetch";
 
@@ -125,7 +124,7 @@ class AddPersonForm extends React.Component<Props, State> {
                         Enter as much information as you can
                     </small>
                     <div style={styles.values}>
-                        <ImagePicker />
+                        {/* <ImagePicker /> */}
                         <TextField
                             ref="mPname"
                             floatingLabelText="Name"
