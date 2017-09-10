@@ -42,7 +42,6 @@ class Home extends Component<Props, {}> {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div style={homeStyle}>
                 <header>

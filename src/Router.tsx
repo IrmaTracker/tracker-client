@@ -41,7 +41,7 @@ export default class LayoutTabs extends Component {
                     <Tab label="Add Missing Person">
                         <AddPersonForm />
                     </Tab>
-                    <Tab label="Help" />
+                    <Tab label="Updates" />
                 </Tabs>
             </MuiThemeProvider>
         );

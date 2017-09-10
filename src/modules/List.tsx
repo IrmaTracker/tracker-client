@@ -10,13 +10,15 @@ import {
 import { Person } from "../interfaces/apiInterfaces";
 
 interface TableProps {
-    people?: Person[];
+    area?: number;
 }
 /**
  * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
  */
 const TableExampleSimple = (props: TableProps) => {
-    if (props.people) {
+    if (props.area) {
+        // fetch people
+        const people: Person[] = [];
         return (
             <Table>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -38,7 +40,7 @@ const TableExampleSimple = (props: TableProps) => {
                             What is life? Baby don't hurt me.
                         </TableRowColumn>
                     </TableRow>
-                    {props.people.map(person => {
+                    {people.map(person => {
                         return (
                             <Row
                                 name={person.name}
