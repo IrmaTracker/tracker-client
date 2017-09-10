@@ -10,7 +10,7 @@ import {
 import { Person } from "../interfaces/apiInterfaces";
 
 interface TableProps {
-    area?: number;
+    area: number | null;
 }
 /**
  * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.

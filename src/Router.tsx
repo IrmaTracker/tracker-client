@@ -15,14 +15,20 @@ const styles: React.CSSProperties = {
     marginBottom: 12
 };
 
+interface State {
+    area: number | null;
+}
 // Main Layout
-export default class LayoutTabs extends Component {
+export default class LayoutTabs extends Component<{}, State> {
     constructor(props: {}) {
         super(props);
         this.handler = this.handler.bind(this);
+        this.state = {
+            area: null
+        };
     }
 
-    handler(e: {}) {
+    handler(e: any) {
         this.setState({
             area: e
         });
@@ -36,7 +42,7 @@ export default class LayoutTabs extends Component {
                         <Home handler={this.handler} />
                     </Tab>
                     <Tab label="List">
-                        <List />
+                        <List area={this.state.area} />
                     </Tab>
                     <Tab label="Add Missing Person">
                         <AddPersonForm />

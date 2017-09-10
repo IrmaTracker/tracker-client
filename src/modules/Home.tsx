@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Component } from "react";
-import AutoComplete from "material-ui/AutoComplete";
+import SelectArea from "../components/selectArea";
 
-// Add your own
+// TODO: fetch arealist
 const dataSource = [
     "Anguilla",
     "Antigua",
@@ -52,16 +52,9 @@ class Home extends Component<Props, {}> {
                     <h2>
                         Select one of the islands/countries affected by Irma
                     </h2>
-                    <AutoComplete
-                        hintText="Enter Area"
-                        filter={AutoComplete.caseInsensitiveFilter}
-                        openOnFocus={true}
+                    <SelectArea
                         dataSource={dataSource}
-                        onUpdateInput={this.props.handler}
-                        listStyle={{
-                            maxHeight: 200,
-                            overflow: "auto"
-                        }}
+                        handler={this.props.handler}
                     />
                 </div>
             </div>
