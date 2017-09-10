@@ -78,11 +78,21 @@ const getTable = (people: Person[]) => {
                 {people.map(person => {
                     return (
                         <TableRow key={`row-${person.id}`}>
-                            <TableRowColumn>{person.name}</TableRowColumn>
-                            <TableRowColumn>{person.address}</TableRowColumn>
-                            <TableRowColumn>{person.district}</TableRowColumn>
-                            <TableRowColumn>{person.safe}</TableRowColumn>
-                            <TableRowColumn>{person.extra_info}</TableRowColumn>
+                            <TableRowColumn>
+                                <span>{person.name}</span>
+                            </TableRowColumn>
+                            <TableRowColumn>
+                                <span>{person.address}</span>
+                            </TableRowColumn>
+                            <TableRowColumn>
+                                <span>{person.district}</span>
+                            </TableRowColumn>
+                            <TableRowColumn>
+                                <span>{person.safe}</span>
+                            </TableRowColumn>
+                            <TableRowColumn>
+                                <span>{person.extra_info}</span>
+                            </TableRowColumn>
                         </TableRow>
                     );
                 })}
