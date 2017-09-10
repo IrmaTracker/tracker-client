@@ -2,9 +2,34 @@ import * as React from "react";
 import AutoComplete from "material-ui/AutoComplete";
 
 interface Props {
-    dataSource: any;
     handler: any;
 }
+
+// TODO: fetch arealist
+const dataSource = [
+    "Anguilla",
+    "Antigua",
+    "Bahamas",
+    "Boca Raton, FL",
+    "British Virgin Islands",
+    "Cuba",
+    "Dominican Republic",
+    "Guadeloupe",
+    "Haiti",
+    "Keywest, FL",
+    "Miami, FL",
+    "Montserrat",
+    "Naples",
+    "Nevis",
+    "Orlando, FL",
+    "Puerto Rico",
+    "Saba",
+    "Saint Barth",
+    "Sint Maarten",
+    "Saint Martin",
+    "St John",
+    "St Croix"
+];
 
 const SelectArea = (props: Props) => {
     return (
@@ -12,9 +37,8 @@ const SelectArea = (props: Props) => {
             hintText="Enter Area"
             filter={AutoComplete.caseInsensitiveFilter}
             openOnFocus={true}
-            dataSource={props.dataSource}
+            dataSource={dataSource}
             onUpdateInput={props.handler}
-            style={{ height: 160 }}
             listStyle={{
                 maxHeight: 120,
                 overflow: "auto",

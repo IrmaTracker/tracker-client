@@ -2,34 +2,9 @@ import * as React from "react";
 import { Component } from "react";
 import SelectArea from "../components/selectArea";
 import HelpList from "./HelpList";
-// TODO: fetch arealist
-const dataSource = [
-    "Anguilla",
-    "Antigua",
-    "Bahamas",
-    "Boca Raton, FL",
-    "British Virgin Islands",
-    "Cuba",
-    "Dominican Republic",
-    "Guadeloupe",
-    "Haiti",
-    "Keywest, FL",
-    "Miami, FL",
-    "Montserrat",
-    "Naples",
-    "Nevis",
-    "Orlando, FL",
-    "Puerto Rico",
-    "Saba",
-    "Saint Barth",
-    "Sint Maarten",
-    "Saint Martin",
-    "St John",
-    "St Croix"
-];
 
 const homeStyle: React.CSSProperties = {
-    margin: "1em",
+    margin: "1em 2.5em",
     h1: {
         fontSize: 36,
         fontWeight: "normal",
@@ -71,10 +46,9 @@ class Home extends Component<Props, {}> {
                     <h2 style={homeStyle.h2}>
                         Select one of the islands/countries affected by Irma:
                     </h2>
-                    <SelectArea
-                        dataSource={dataSource}
-                        handler={this.props.handler}
-                    />
+                    <div style={{ height: 160 }}>
+                        <SelectArea handler={this.props.handler} />
+                    </div>
                 </div>
             </div>
         );

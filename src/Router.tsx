@@ -42,7 +42,7 @@ export default class LayoutTabs extends Component<{}, State> {
                         <Home handler={this.handler} />
                     </Tab>
                     <Tab label="List">
-                        <List area={this.state.area} />
+                        <List area={this.state.area} handler={this.handler} />
                     </Tab>
                     <Tab label="Add">
                         <AddPersonForm />
