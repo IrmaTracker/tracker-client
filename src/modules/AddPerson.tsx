@@ -9,6 +9,7 @@ import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 import ImagePicker from "../components/ImagePicker";
 import { PersonParams } from "../interfaces/apiInterfaces";
 import fetch from "node-fetch";
+import { isUndefined, isNullOrUndefined } from "util";
 
 const styles: React.CSSProperties = {
     leftAlign: {
@@ -61,7 +62,7 @@ interface Props {
 
 interface State {
     mPname: string;
-    mPage: number;
+    mPage: string;
     mPDistrict: string;
     mPaddress: string;
     mPlastSeenDate?: Date | undefined;
@@ -88,7 +89,7 @@ class AddPersonForm extends React.Component<Props, State> {
 
         this.state = {
             mPname: "",
-            mPage: 0,
+            mPage: "",
             mPaddress: "",
             mPDistrict: "",
             mPlastSeenDate: undefined,
@@ -111,7 +112,6 @@ class AddPersonForm extends React.Component<Props, State> {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div style={styles.form}>
                 <div>
@@ -303,15 +303,20 @@ class AddPersonForm extends React.Component<Props, State> {
             errorExists = true;
         }
 
-        // if (errorExists) return;
+        if (errorExists) return;
 
         const formBody: PersonParams = {
             name: this.state.mPname,
-            age: this.state.mPage,
+            age: Number(this.state.mPage),
             area: 1, // not actually, TODO
             phonenumber: this.state.mPphonenum,
-            missing_since:
-                this.state.mPlastSeenDate + " " + this.state.mPtimeLastSeen,
+            missing_since: isUndefined(this.state.mPlastSeenDate)
+                ? ""
+                : this.state.mPlastSeenDate +
+                  " " +
+                  isUndefined(this.state.mPtimeLastSeen)
+                  ? ""
+                  : this.state.mPtimeLastSeen,
             district: this.state.mPDistrict,
             address: this.state.mPaddress,
             //area: this.props.area,
@@ -323,43 +328,40 @@ class AddPersonForm extends React.Component<Props, State> {
             requester_number: this.state.pCnumber
         };
 
-        var body: any = new FormData();
-        body.append("json", JSON.stringify(formBody)) as any;
-
         // No error so safely post to api
 
-        console.log(body);
-        // var myHeaders = new Headers();
-        const response = await fetch(
-            "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
-            {
-                headers: {
-                    Authorization:
-                        "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
-                }
-            }
-        );
+        var body: any = new FormData();
+        body.append("json", JSON.stringify(formBody) as any);
 
-        console.log(response);
-
-        // fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
-        //     method: "post",
-        //     headers: {
-        //         "Access-Control-Allow-Methods": " POST",
-        //         "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        //         "Access-Control-Allow-Origin": "http://localhost:3000",
-        //         Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
-        //     },
-        //     body
-        // })
-        //     .then(res => res.json())
-        //     .then(res => console.log(res))
-        //     .catch(error => console.log(error));
+        fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
+            method: "post",
+            headers: {
+                Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31",
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Origin: ""
+            },
+            body: JSON.stringify(formBody)
+        })
+            .then(res => res.json())
+            .then(res => this.completePost(res))
+            .catch(error => console.log(error));
     }
 
     validateEmail(email: string) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
+    }
+
+    completePost(data: any) {
+        if (isNullOrUndefined(data)) {
+            alert("An error occured when adding this person");
+        } else {
+            alert("Person added successfully");
+
+            // TODO
+            // code to redirect user to appropriate page
+        }
     }
 }
 
