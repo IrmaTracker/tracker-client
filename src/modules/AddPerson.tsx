@@ -7,6 +7,7 @@ import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import Checkbox from "material-ui/Checkbox";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 import ImagePicker from "../components/ImagePicker";
+import { PersonParams } from "../interfaces/apiInterfaces";
 import fetch from "node-fetch";
 
 const styles: React.CSSProperties = {
@@ -46,32 +47,29 @@ const styles: React.CSSProperties = {
     }
 };
 
-type TextData = string | undefined;
-type MyDate = Date | undefined;
-
 interface Props {
     formHandler?: any; // might not need this
 }
 
 interface State {
-    mPname: TextData;
-    mPage: TextData;
-    mPDistrict: TextData;
-    mPaddress: TextData;
-    mPlastSeenDate: MyDate;
-    mPtimeLastSeen: MyDate;
-    mPphonenum: TextData;
-    mPextraInfo: TextData;
+    mPname: string;
+    mPage: number;
+    mPDistrict: string;
+    mPaddress: string;
+    mPlastSeenDate?: Date | undefined;
+    mPtimeLastSeen?: Date | undefined;
+    mPphonenum: string;
+    mPextraInfo: string;
     mPSafe: boolean;
-    pCname: TextData;
-    pCnumber: TextData;
-    pCemail: TextData;
-    pCfacebook: TextData;
-    errorMsg: TextData;
-    imgUri: TextData;
-    emailError: TextData;
-    mPNameError: TextData;
-    pCnameError: TextData;
+    pCname: string;
+    pCnumber: string;
+    pCemail: string;
+    pCfacebook: string;
+    errorMsg: string;
+    imgUri: string;
+    emailError: string;
+    mPNameError: string;
+    pCnameError: string;
 }
 
 class AddPersonForm extends React.Component<Props, State> {
@@ -82,7 +80,7 @@ class AddPersonForm extends React.Component<Props, State> {
 
         this.state = {
             mPname: "",
-            mPage: "",
+            mPage: 0,
             mPaddress: "",
             mPDistrict: "",
             mPlastSeenDate: undefined,
@@ -279,7 +277,7 @@ class AddPersonForm extends React.Component<Props, State> {
         );
     }
 
-    _handleSubmit() {
+    async _handleSubmit() {
         this.setState({ mPNameError: "", emailError: "", pCnameError: "" });
 
         var errorExists: boolean = false;
@@ -298,9 +296,10 @@ class AddPersonForm extends React.Component<Props, State> {
 
         // if (errorExists) return;
 
-        let body: any = {
+        const formBody: PersonParams = {
             name: this.state.mPname,
             age: this.state.mPage,
+            area: 1, // not actually, TODO
             phonenumber: this.state.mPphonenum,
             missing_since:
                 this.state.mPlastSeenDate + " " + this.state.mPtimeLastSeen,
@@ -315,38 +314,38 @@ class AddPersonForm extends React.Component<Props, State> {
             requester_number: this.state.pCnumber
         };
 
+        var body: any = new FormData();
+        body.append("json", JSON.stringify(formBody)) as any;
+
         // No error so safely post to api
 
-        fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
-            method: "post",
-            headers: {
-                "Access-Control-Allow-Methods": " POST",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                "Access-Control-Allow-Origin": "http://127.0.0.1:3000",
-                Authorization: "Token cbd654628773cebf5a2a130b65b1d6963c36cd6b"
-            },
-            body: body
-        })
-            .then(res => res.json())
-            .then(res => console.log(res))
-            .catch(error => console.log(error));
+        console.log(body);
+        // var myHeaders = new Headers();
+        const response = await fetch(
+            "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
+            {
+                headers: {
+                    Authorization:
+                        "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
+                }
+            }
+        );
 
-        // TODO: Make a request using fetch
-        // let body = {
-        //     name: this.state.mPname
-        // };
-        // request.post(
-        //     {
-        //         url: "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
-        //         headers: {
-        //             Authorization: ""
-        //         },
-        //         form: { body }
+        console.log(response);
+
+        // fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
+        //     method: "post",
+        //     headers: {
+        //         "Access-Control-Allow-Methods": " POST",
+        //         "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        //         "Access-Control-Allow-Origin": "http://localhost:3000",
+        //         Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
         //     },
-        //     function(err: any, httpResponse: any, body: any) {
-        //         console.log("response is " + body);
-        //     }
-        // );
+        //     body
+        // })
+        //     .then(res => res.json())
+        //     .then(res => console.log(res))
+        //     .catch(error => console.log(error));
     }
 
     validateEmail(email: string) {
