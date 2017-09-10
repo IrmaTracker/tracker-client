@@ -111,7 +111,6 @@ class AddPersonForm extends React.Component<Props, State> {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div style={styles.form}>
                 <div>
@@ -286,7 +285,7 @@ class AddPersonForm extends React.Component<Props, State> {
         );
     }
 
-    async _handleSubmit() {
+    _handleSubmit() {
         this.setState({ mPNameError: "", emailError: "", pCnameError: "" });
 
         var errorExists: boolean = false;
@@ -323,38 +322,22 @@ class AddPersonForm extends React.Component<Props, State> {
             requester_number: this.state.pCnumber
         };
 
-        var body: any = new FormData();
-        body.append("json", JSON.stringify(formBody)) as any;
-
-        // No error so safely post to api
-
-        console.log(body);
-        // var myHeaders = new Headers();
-        const response = await fetch(
-            "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
-            {
-                headers: {
-                    Authorization:
-                        "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
-                }
-            }
-        );
-
-        console.log(response);
-
-        // fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
-        //     method: "post",
-        //     headers: {
-        //         "Access-Control-Allow-Methods": " POST",
-        //         "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        //         "Access-Control-Allow-Origin": "http://localhost:3000",
-        //         Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31"
-        //     },
-        //     body
-        // })
-        //     .then(res => res.json())
-        //     .then(res => console.log(res))
-        //     .catch(error => console.log(error));
+        fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
+            method: "POST",
+            headers: {
+                Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31",
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Origin: ""
+            },
+            body: JSON.stringify(formBody)
+        })
+            .then(res => {
+                return res.json();
+            })
+            .then(json => {
+                console.log(json);
+            });
     }
 
     validateEmail(email: string) {
