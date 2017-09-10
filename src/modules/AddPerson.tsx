@@ -321,7 +321,7 @@ class AddPersonForm extends React.Component<Props, State> {
             requester_number: this.state.pCnumber
         };
 
-        fetch("http://lemuelboyce.pythonanywhere.com/api/v1/persons", {
+        fetch("https://lemuelboyce.pythonanywhere.com/api/v1/persons", {
             method: "POST",
             headers: {
                 Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31",
