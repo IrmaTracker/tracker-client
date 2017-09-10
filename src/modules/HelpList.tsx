@@ -100,10 +100,9 @@ class VerticalNonLinear extends React.Component {
                             <p style={{ fontSize: "0.5em" }}>
                                 Click on{" "}
                                 <span style={{ fontWeight: "bold" }}>
-                                    Add Missing Person
+                                    Add
                                 </span>{" "}
-                                to submit a name of the person or people you're
-                                looking for
+                                to fill a form to add a missing person
                             </p>
                         </StepContent>
                     </Step>

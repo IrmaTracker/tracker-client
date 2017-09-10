@@ -36,8 +36,9 @@ const homeStyle: React.CSSProperties = {
         marginBottom: 10
     },
     h2: {
-        fontSize: 26,
-        fontWeight: "normal"
+        fontSize: 23,
+        fontWeight: "normal",
+        marginBottom: 10
     },
     small: {
         fontSize: 20,
@@ -68,7 +69,7 @@ class Home extends Component<Props, {}> {
                 </div>
                 <div>
                     <h2 style={homeStyle.h2}>
-                        Select one of the islands/countries affected by Irma
+                        Select one of the islands/countries affected by Irma:
                     </h2>
                     <SelectArea
                         dataSource={dataSource}

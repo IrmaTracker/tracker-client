@@ -19,6 +19,14 @@ const styles: React.CSSProperties = {
         margin: "auto",
         marginTop: 15
     },
+    h2: {
+        fontSize: 22,
+        fontWeight: "normal"
+    },
+    small: {
+        fontSize: 20,
+        opacity: "0.5"
+    },
     h4: {
         fontSize: 16,
         color: "#00BCD4",
@@ -41,7 +49,7 @@ const styles: React.CSSProperties = {
     },
     form: {
         margin: "0 1.3em",
-        textAlign: "center",
+        textAlign: "left",
         display: "flex",
         flexDirection: "column"
     }
@@ -106,8 +114,6 @@ class AddPersonForm extends React.Component<Props, State> {
         console.log(this.state);
         return (
             <div style={styles.form}>
-                <h2>Add Someone To the List</h2>
-                <small>Enter as much information as you can</small>
                 <div>
                     <h3
                         style={{
@@ -116,6 +122,9 @@ class AddPersonForm extends React.Component<Props, State> {
                     >
                         Who are you looking for?
                     </h3>
+                    <small style={styles.small}>
+                        Enter as much information as you can
+                    </small>
                     <div style={styles.values}>
                         <ImagePicker />
                         <TextField
