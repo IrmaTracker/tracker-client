@@ -15,8 +15,9 @@ const SelectArea = (props: Props) => {
             dataSource={props.dataSource}
             onUpdateInput={props.handler}
             listStyle={{
-                maxHeight: 200,
-                overflow: "auto"
+                maxHeight: 120,
+                overflow: "auto",
+                fontSize: "0.7em"
             }}
         />
     );
