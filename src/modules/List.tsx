@@ -78,6 +78,7 @@ interface OverviewPerson {
     extraInfo?: string;
 }
 const Row = (info: OverviewPerson) => {
+    getPeople();
     return (
         <TableRow>
             <TableRowColumn>John Smith</TableRowColumn>
@@ -87,6 +88,24 @@ const Row = (info: OverviewPerson) => {
             <TableRowColumn>What is life? Baby don't hurt me.</TableRowColumn>
         </TableRow>
     );
+};
+
+const getPeople = async () => {
+    // No error so safely post to api
+    const response = await fetch(
+        "http://lemuelboyce.pythonanywhere.com/api/v1/persons",
+        {
+            headers: {
+                Authorization: "Token d4f017318b3bbd3127e0b44018cc9601f6337a31",
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Origin: ""
+            }
+        }
+    );
+
+    console.log(response);
+    console.log(response.json);
 };
 
 export default TableExampleSimple;
